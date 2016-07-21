@@ -31,6 +31,7 @@ public class RawMaterialManagement_AddRawMaterialServlet extends HttpServlet {
              * And in this case, numeric inputs only.
              */
             String regexNumericOnly = "[0-9]+";
+            String regexCheckSKU = "[R][M]\\d+";
             
             // Get the SKU input then run the RegEx checks
             String preSKU = request.getParameter("SKU");
@@ -38,14 +39,31 @@ public class RawMaterialManagement_AddRawMaterialServlet extends HttpServlet {
             String preWidth = request.getParameter("width");
             String preHeight = request.getParameter("height");
             
-            // If the SKU only contains integers ONLY,
-            if (preSKU.matches(regexNumericOnly)) {
+            /**
+             * This enforces the user to only key in integers into the
+             * input box, such that we will not need to bother the user to key 
+             * in any "RM" before the integers.
+             * 
+             * However, because the assignment clearly indicated 
+             * the coding standards, this has been commented out for 
+             * the proposed method
+             */
+//            // If the SKU only contains integers ONLY,
+//            if (preSKU.matches(regexNumericOnly)) {
+//                // Then we'll properly let it go through
+//                SKU = "RM" + preSKU;
+//            } else {
+//                // Else we'll have to toss it back to tell the user that 
+//                // the data is bad
+//                result = "You have entered non-numeric values into the SKU number.";
+//                response.sendRedirect(source + result);
+//            }
+
+            if (preSKU.matches(regexCheckSKU)) {
                 // Then we'll properly let it go through
-                SKU = "RM" + preSKU;
+                SKU = preSKU;
             } else {
-                // Else we'll have to toss it back to tell the user that 
-                // the data is bad
-                result = "You have entered non-numeric values into the SKU number.";
+                result = "You have entered an invalid SKU numbering format.";
                 response.sendRedirect(source + result);
             }
             
