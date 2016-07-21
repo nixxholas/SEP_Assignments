@@ -19,14 +19,74 @@ public class RawMaterialManagement_AddRawMaterialServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         try {
-            String SKU = request.getParameter("SKU");
+            // Let's slot the source at the top as we need it everywhere below
+            String source = request.getParameter("source");
+            
+            String SKU = "";
+            Integer _length = 0, width = 0, height = 0;
+            /**
+             * Regex String for identifying certain
+             * types of datatype
+             * 
+             * And in this case, numeric inputs only.
+             */
+            String regexNumericOnly = "[0-9]+";
+            
+            // Get the SKU input then run the RegEx checks
+            String preSKU = request.getParameter("SKU");
+            String preLength = request.getParameter("length");
+            String preWidth = request.getParameter("width");
+            String preHeight = request.getParameter("height");
+            
+            // If the SKU only contains integers ONLY,
+            if (preSKU.matches(regexNumericOnly)) {
+                // Then we'll properly let it go through
+                SKU = "RM" + preSKU;
+            } else {
+                // Else we'll have to toss it back to tell the user that 
+                // the data is bad
+                result = "You have entered non-numeric values into the SKU number.";
+                response.sendRedirect(source + result);
+            }
+            
+            if (preLength.matches(regexNumericOnly)) {
+                // Then we'll properly let it go through
+                // And then parse it into an integer
+                _length = Integer.parseInt(preLength);
+            } else {
+                // Else we'll have to toss it back to tell the user that 
+                // the data is bad
+                result = "You have entered non-numeric values into the length input box.";
+                response.sendRedirect(source + result);
+            }
+            
+            if (preWidth.matches(regexNumericOnly)) {
+                // Then we'll properly let it go through
+                // And then parse it into an integer
+                width = Integer.parseInt(preWidth);
+            } else {
+                // Else we'll have to toss it back to tell the user that 
+                // the data is bad
+                result = "You have entered non-numeric values into the width input box.";
+                response.sendRedirect(source + result);
+            }
+                        
+            if (preHeight.matches(regexNumericOnly)) {
+                // Then we'll properly let it go through
+                // And then parse it into an integer
+                height = Integer.parseInt(preHeight);
+            } else {
+                // Else we'll have to toss it back to tell the user that 
+                // the data is bad
+                result = "You have entered non-numeric values into the height input box.";
+                response.sendRedirect(source + result);
+            }
+                       
+            // Nothing to check for these            
             String name = request.getParameter("name");
             String category = request.getParameter("category");
             String description = request.getParameter("description");
-            Integer _length = Integer.parseInt(request.getParameter("length"));
-            Integer width = Integer.parseInt(request.getParameter("width"));
-            Integer height = Integer.parseInt(request.getParameter("height"));
-            String source = request.getParameter("source");
+            
             System.out.println("source is " + source);
             
             if (!itemManagementBean.checkSKUExists(SKU)) {
