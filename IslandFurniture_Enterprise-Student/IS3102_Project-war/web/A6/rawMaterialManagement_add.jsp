@@ -50,19 +50,25 @@
                                 </div>
                                 <div class="form-group">
                                     <label>SKU</label>
-                                    <input class="form-control" required="true" type="text" name="SKU">
+                                    <div class="input-group">
+                                    <span class="input-group-addon" id="SKUaddon">RM</span>
+                                    <!-- onkeypress adapted from: 
+                                        http://stackoverflow.com/questions/469357/html-text-input-allow-only-numeric-input
+                                        by Stackoverflow member, inspite -->
+                                    <input class="form-control" required="true" type="number" name="SKU" onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
+                                    </div>
                                 </div>
                                 <div class="form-group">
                                     <label>Length per item</label>
-                                    <input class="form-control" required="true" type="number" name="length">
+                                    <input class="form-control" required="true" type="number" min="1" name="length">
                                 </div>
                                 <div class="form-group">
                                     <label>Width per item</label>
-                                    <input class="form-control" required="true" type="number" name="width">
+                                    <input class="form-control" required="true" type="number" min="1" name="width">
                                 </div>
                                 <div class="form-group">
                                     <label>Height per item</label>
-                                    <input class="form-control" required="true" type="number" name="height">
+                                    <input class="form-control" required="true" type="number" min="1" name="height">
                                 </div>
                                 <div class="form-group">
                                     <input type="submit" value="Add" class="btn btn-lg btn-primary btn-block">
@@ -83,3 +89,5 @@
     </body>
 
 </html>
+<script>
+    </script>
