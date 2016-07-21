@@ -1,3 +1,4 @@
+<%@page import="java.math.BigDecimal"%>
 <%@page import="HelperClasses.Member"%>
 <%@page import="java.net.URLDecoder"%>
 <%@page import="HelperClasses.Furniture"%>
@@ -29,8 +30,26 @@
         <%
             List<StoreEntity> storesInCountry = (List<StoreEntity>) session.getAttribute("storesInCountry");
             List<Furniture> furnitures = (List<Furniture>) (session.getAttribute("furnitures"));
+            
             /*define your variables here*/
+            String id = "", name = "", imageURL = "", category = "", description = "";
+            BigDecimal price = new BigDecimal(0.0);
+            Integer length = 0, width = 0, height = 0;
+            
             /*set your variables here*/
+            for (Furniture furniture : furnitures) {
+                if (furniture.getSKU().equals(sku)) {
+                    id = Long.toString(furniture.getId());
+                    category = furniture.getCategory();
+                    name = furniture.getName();
+                    price = new BigDecimal(furniture.getPrice().toString());
+                    imageURL = furniture.getImageUrl();
+                    description = furniture.getDescription();
+                    length = furniture.getHeight();
+                    width = furniture.getWidth();
+                    height = furniture.getHeight();
+                }
+            }
         %>
         <div class="body">
             <jsp:include page="menu2.jsp" />
@@ -51,37 +70,37 @@
                             <div class="col-md-6">
                                 <div>
                                     <div class="thumbnail">
-                                        <img alt="" class="img-responsive img-rounded" src="../../..<%/*insert code here*/%>">
+                                        <img alt="" class="img-responsive img-rounded" src="../../..<%=imageURL%>">
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="summary entry-summary">
-                                    <h2 class="shorter"><strong>Insert category name</strong></h2>
+                                    <h2 class="shorter"><strong><%=category%></strong></h2>
                                     <%
                                         if (isMemberLoggedIn == true) {
                                     %>
                                     <form action="../../ECommerce_AddFurnitureToListServlet">
-                                        <input type="hidden" name="id" value="<%/*insert code here*/%>"/>
-                                        <input type="hidden" name="SKU" value="<%/*insert code here*/%>"/>
-                                        <input type="hidden" name="price" value="<%/*insert code here*/%>"/>
-                                        <input type="hidden" name="name" value="<%/*insert code here*/%>"/>
-                                        <input type="hidden" name="imageURL" value="<%/*insert code here*/%>"/>
+                                        <input type="hidden" name="id" value="<%=id%>"/>
+                                        <input type="hidden" name="SKU" value="<%=sku%>"/>
+                                        <input type="hidden" name="price" value="<%=price.setScale(2, BigDecimal.ROUND_HALF_EVEN)%>"/>
+                                        <input type="hidden" name="name" value="<%=name%>"/>
+                                        <input type="hidden" name="imageURL" value="<%=imageURL%>"/>
                                         <input type="submit" name="btnEdit" class="btn btn-primary" id="<%/*insert code here*/%>" value="Add To Cart"/>
                                     </form>
                                     <%}%>
-                                    <p class="price"><h4 class="amount"><%/*insert code here*/%></h4></p>
+                                    <p class="price"><h4 class="amount">$<%=price.setScale(2, BigDecimal.ROUND_HALF_EVEN)%></h4></p>
                                     <strong>Description</strong>
                                     <p class="taller">
-                                        <%/*insert code here*/%>
+                                        <%=description%>
                                     </p>
                                     <p>
-                                        Height: <%/*insert code here*/%><br/>
-                                        Length: <%/*insert code here*/%><br/>
-                                        Width: <%/*insert code here*/%>
+                                        Height: <%=height%><br/>
+                                        Length: <%=length%><br/>
+                                        Width: <%=width%>
                                     </p>
                                     <div class="product_meta">
-                                        <span class="posted_in">Category: <a rel="tag" href="../../ECommerce_FurnitureCategoryServlet?cat=<%/*insert code here*/%>"><%/*insert code here*/%></a></span>
+                                        <span class="posted_in">Category: <a rel="tag" href="../../ECommerce_FurnitureCategoryServlet?cat=<%=category%>"><%=category%></a></span>
                                     </div>
                                     <br/><br/>
 
