@@ -123,7 +123,7 @@
                 <b class="caret"></b>
             </a>
 
-            <ul class="dropdown-menu" style="min-width: 300px">
+            <ul class="dropdown-menu" style="min-width: 100px">
                 <%
                     for (RoleEntity role : roles) {
                 %>
@@ -161,13 +161,9 @@
                 </li>    
                 <%
                     }
-                %>                       
-            </ul>
-
-        </li><%}%>
-        <li class="dropdown">
-            <a style="color: #C5C5C5;" href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon icon-user"></i> <%=staffEntity.getName()%><b class="caret"></b></a>
-            <ul class="dropdown-menu">
+                %>
+                
+                
                 <li>
                     <a href="../A1/staffProfile.jsp"><i class="icon icon-user"></i> Profile</a>
                 </li>
@@ -179,7 +175,13 @@
                     <a href="../AccountManagement_LogoutServlet"><i class="icon icon-power-off"></i> Log Out</a>
                 </li>
             </ul>
-        </li>
+
+        </li><%}%>
+<!--        <li class="dropdown">
+            <a style="color: #C5C5C5;" href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon icon-user"></i> <%=staffEntity.getName()%><b class="caret"></b></a>
+            <ul class="dropdown-menu">
+            </ul>
+        </li>-->
     </ul>
     <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
     <div class="collapse navbar-collapse navbar-ex1-collapse">
