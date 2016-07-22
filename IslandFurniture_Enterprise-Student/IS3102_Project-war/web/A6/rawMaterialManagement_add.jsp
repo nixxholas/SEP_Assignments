@@ -58,7 +58,7 @@
                                      onkeypress adapted from: 
                                         http://stackoverflow.com/questions/469357/html-text-input-allow-only-numeric-input
                                         by Stackoverflow member, inspite -->
-                                    <input class="form-control" required="true" type="text" name="SKU" pattern="[R][M]\\d+" title="Format: RM#. '#' represents integer > 0."> <!-- onkeypress='return event.charCode >= 48 && event.charCode <= 57' -->
+                                    <input class="form-control" required="true" type="text" name="SKU" pattern="[Rr][Mm][0-9]+$" title="Format: RM#. '#' represents integer > 0."> <!-- onkeypress='return event.charCode >= 48 && event.charCode <= 57' -->
                                     <!-- </div> -->
                                 </div>
                                 <div class="form-group">

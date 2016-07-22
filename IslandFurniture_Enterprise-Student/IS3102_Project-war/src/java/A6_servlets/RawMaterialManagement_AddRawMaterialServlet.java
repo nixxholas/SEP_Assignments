@@ -31,7 +31,7 @@ public class RawMaterialManagement_AddRawMaterialServlet extends HttpServlet {
              * And in this case, numeric inputs only.
              */
             String regexNumericOnly = "[0-9]+";
-            String regexCheckSKU = "[R][M]\\d+";
+            String regexCheckSKU = "[Rr][Mm][0-9]+$";
             
             // Get the SKU input then run the RegEx checks
             String preSKU = request.getParameter("SKU");
@@ -48,16 +48,16 @@ public class RawMaterialManagement_AddRawMaterialServlet extends HttpServlet {
              * the coding standards, this has been commented out for 
              * the proposed method
              */
-//            // If the SKU only contains integers ONLY,
-//            if (preSKU.matches(regexNumericOnly)) {
-//                // Then we'll properly let it go through
-//                SKU = "RM" + preSKU;
-//            } else {
-//                // Else we'll have to toss it back to tell the user that 
-//                // the data is bad
-//                result = "You have entered non-numeric values into the SKU number.";
-//                response.sendRedirect(source + result);
-//            }
+            //            // If the SKU only contains integers ONLY,
+            //            if (preSKU.matches(regexNumericOnly)) {
+            //                // Then we'll properly let it go through
+            //                SKU = "RM" + preSKU;
+            //            } else {
+            //                // Else we'll have to toss it back to tell the user that 
+            //                // the data is bad
+            //                result = "You have entered non-numeric values into the SKU number.";
+            //                response.sendRedirect(source + result);
+            //            }
 
             if (preSKU.matches(regexCheckSKU)) {
                 // Then we'll properly let it go through
