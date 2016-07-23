@@ -22,7 +22,22 @@ public class RawMaterialManagement_AddRawMaterialServlet extends HttpServlet {
             // Let's slot the source at the top as we need it everywhere below
             String source = request.getParameter("source");
             
+            /**
+             * Variable Definitions
+             * 
+             * Initialize all the Strings that we need to initialize in
+             * order to properly parse in the object that we want to create and
+             * upload into the database
+             * 
+             * We'll then have to perform proper variable checks in order to
+             * parse in the object correctly in order to prevent conflicts from
+             * happening with regards to the database
+             * 
+             */
             String SKU = "";
+            String name = "";
+            String category = "";
+            String description = "";
             Integer _length = 0, width = 0, height = 0;
             /**
              * Regex String for identifying certain
@@ -38,6 +53,10 @@ public class RawMaterialManagement_AddRawMaterialServlet extends HttpServlet {
             String preLength = request.getParameter("length");
             String preWidth = request.getParameter("width");
             String preHeight = request.getParameter("height");
+            String preName = request.getParameter("name");
+            String preCategory = request.getParameter("category");
+            String preDescription = request.getParameter("description");
+            
             
             /**
              * This enforces the user to only key in integers into the
@@ -100,10 +119,50 @@ public class RawMaterialManagement_AddRawMaterialServlet extends HttpServlet {
                 response.sendRedirect(source + result);
             }
                        
-            // Nothing to check for these            
-            String name = request.getParameter("name");
-            String category = request.getParameter("category");
-            String description = request.getParameter("description");
+            // Time to check the strings
+            // We might have to check that the string are properly parse in and
+            // we need to make sure that the strings have something in it else
+            // we'll toss the user back to the source page.
+            //
+            // Update
+            // .IsEmpty() can also be utilized for these statements
+            // However I have used null/"". This is another way to check the string.
+           
+            // If preName is not null or whatsoever,
+            if (preName != "" || preName != null) {
+                // Parse in Name so that it can be ready for
+                // the object submission
+                name = preName;
+            } else {
+                // Else we'll have to toss it back to tell the user that
+                // the data is bad
+                result = "Please give a name to your product!";
+                response.sendRedirect(source + result);
+            }
+            
+            // If preCategory is not null or whatsoever,
+            if (preCategory != "" || preCategory != null) {
+                // Parse in the Category so that it can be ready for
+                // object submission/creation.
+                category = preCategory;
+            } else {
+                // Else we'll have to toss it back to tell the user that
+                // the data is bad
+                result = "Please give a category to your product!";
+                response.sendRedirect(source + result);
+            }
+            
+            // If preDescription is not null or whatsoever,
+            if (preDescription != "" || preDescription != null) {
+                // Parse in the Description so that it can be ready for 
+                // object submission/creation.
+                description = preDescription;
+            } else {
+                // Else we'll have to toss it abck to tell the user that
+                // the data is bad
+                result = "Please enter a description for your product!";
+                response.sendRedirect(source + result);
+            }
             
             System.out.println("source is " + source);
             
